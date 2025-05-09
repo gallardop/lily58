@@ -9,6 +9,28 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        hold_tap_kp_layer: hold_tap_kp_layer {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_TAP_KP_LAYER";
+            bindings = <&mo>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "balanced";
+            hold-trigger-key-positions = <42 43 53 54>;
+        };
+
+        hold_tap_kp_kp: hold_tap_kp_kp {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_TAP_KP_KP";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -22,11 +44,11 @@
 
             display-name = "Base";
             bindings = <
-&kp ESC         &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                         &kp N6  &kp N7     &kp N8     &kp N9   &kp N0    &kp BACKSPACE
-&kp TAB         &kp Q   &kp W   &kp E     &kp R     &kp T                          &kp Y   &kp U      &kp I      &kp O    &kp P     &kp MINUS
-&kp LCTRL       &kp A   &kp S   &kp D     &kp F     &kp G                          &kp H   &kp J      &kp K      &kp L    &kp SEMI  &kp SQT
-&kp LEFT_SHIFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp LBKT     &kp RBKT  &kp N   &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
-                                &kp LALT  &kp LGUI  &mo 1   &kp SPACE    &kp RET   &mo 2   &kp GRAVE  &kp RGUI
+&kp ESC                     &kp N1  &kp N2  &kp N3     &kp N4    &kp N5                                                                                                           &kp N6                          &kp N7     &kp N8     &kp N9   &kp N0    &kp EQUAL
+&kp TAB                     &kp Q   &kp W   &kp E      &kp R     &kp T                                                                                                            &kp Y                           &kp U      &kp I      &kp O    &kp P     &kp MINUS
+&hold_tap_kp_kp LCMD ENTER  &kp A   &kp S   &kp D      &kp F     &kp G                                                                                                            &kp H                           &kp J      &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LEFT_SHIFT              &kp Z   &kp X   &kp C      &kp V     &kp B                                   &hold_tap_kp_layer 2 LEFT_BRACKET    &hold_tap_kp_layer 2 RIGHT_BRACKET  &kp N                           &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                                            &kp LCTRL  &kp LGUI  &hold_tap_kp_kp LEFT_COMMAND BACKSPACE  &hold_tap_kp_layer 1 SPACE           &hold_tap_kp_layer 1 SPACE          &hold_tap_kp_kp RCMD BACKSPACE  &kp GRAVE  &kp RCTRL
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -42,11 +64,11 @@
 
             display-name = "layer_sel";
             bindings = <
-&to 0         &to 0         &to 0         &to 0         &to 0         &to 0                        &kp F1     &kp F2     &kp F3           &kp F4    &kp F5    &kp F6
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &kp F6                       &kp F7     &kp F8     &kp F9           &kp F10   &kp F11   &kp F12
-&kp GRAVE     &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
-&trans        &trans        &trans        &trans        &trans        &trans     &trans    &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
-                                          &trans        &trans        &trans     &trans    &trans  &trans     &trans     &trans
+&bt BT_CLR_ALL  &to 0         &to 0         &to 0         &to 0         &to 0                        &kp F1     &kp F2     &kp F3           &kp F4    &kp F5    &kp F6
+&bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &kp F6                       &kp F7     &kp F8     &kp F9           &kp F10   &kp F11   &kp F12
+&kp GRAVE       &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
+&trans          &trans        &trans        &trans        &trans        &trans     &trans    &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
+                                            &trans        &trans        &trans     &trans    &trans  &trans     &trans     &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
